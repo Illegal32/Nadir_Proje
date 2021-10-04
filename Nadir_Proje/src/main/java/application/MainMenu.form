@@ -210,23 +210,16 @@
         </Property>
       </Properties>
 
-      <Layout>
-        <DimensionLayout dim="0">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="jTabbedPane1" alignment="0" max="32767" attributes="0"/>
-          </Group>
-        </DimensionLayout>
-        <DimensionLayout dim="1">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <Component id="jTabbedPane1" min="-2" pref="600" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-              </Group>
-          </Group>
-        </DimensionLayout>
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
+        <Property name="useNullLayout" type="boolean" value="false"/>
       </Layout>
       <SubComponents>
         <Container class="javax.swing.JTabbedPane" name="jTabbedPane1">
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="0" y="-30" width="-1" height="630"/>
+            </Constraint>
+          </Constraints>
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
           <SubComponents>
@@ -251,24 +244,24 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jScrollPane2" min="-2" max="-2" attributes="0"/>
-                              <Group type="102" attributes="0">
-                                  <Component id="logout" min="-2" pref="151" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="addButton" min="-2" pref="169" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <EmptySpace min="0" pref="63" max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="117" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="jSeparator3" max="32767" attributes="0"/>
                               <Component id="jLabel4" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jScrollPane10" min="-2" pref="434" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Component id="logout" min="-2" pref="151" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="132" max="-2" attributes="0"/>
+                                  <Component id="addButton" min="-2" pref="169" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace min="0" pref="63" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -279,9 +272,9 @@
                           <Component id="jLabel4" min="-2" pref="60" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jSeparator3" min="-2" pref="10" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                          <Component id="jScrollPane2" min="-2" pref="205" max="-2" attributes="0"/>
-                          <EmptySpace pref="110" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
+                          <Component id="jScrollPane10" min="-2" pref="202" max="-2" attributes="0"/>
+                          <EmptySpace pref="130" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="logout" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
                               <Component id="addButton" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
@@ -314,14 +307,36 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Container class="javax.swing.JScrollPane" name="jScrollPane2">
+                <Component class="javax.swing.JButton" name="addButton">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Arial" size="14" style="1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Add"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addButtonActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JButton" name="logout">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Arial" size="14" style="1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Log Out"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="logoutActionPerformed"/>
+                  </Events>
+                </Component>
+                <Container class="javax.swing.JScrollPane" name="jScrollPane10">
                   <AuxValues>
                     <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
                   </AuxValues>
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JTable" name="jTable2">
+                    <Component class="javax.swing.JTable" name="jTable10">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Arial" size="14" style="1"/>
@@ -360,28 +375,6 @@
                     </Component>
                   </SubComponents>
                 </Container>
-                <Component class="javax.swing.JButton" name="addButton">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Arial" size="14" style="1"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="Add"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addButtonActionPerformed"/>
-                  </Events>
-                </Component>
-                <Component class="javax.swing.JButton" name="logout">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Arial" size="14" style="1"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="Log Out"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="logoutActionPerformed"/>
-                  </Events>
-                </Component>
               </SubComponents>
             </Container>
             <Container class="javax.swing.JPanel" name="jPanel6">
@@ -403,20 +396,19 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <EmptySpace min="0" pref="565" max="32767" attributes="0"/>
                       <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace max="32767" attributes="0"/>
                               <Component id="jPanel12" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="600" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="603" max="32767" attributes="0"/>
                       <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
                               <Component id="jPanel12" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
@@ -467,9 +459,9 @@
                               <Component id="jLabel5" min="-2" pref="60" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jSeparator4" min="-2" pref="10" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                              <Component id="jScrollPane3" min="-2" pref="205" max="-2" attributes="0"/>
-                              <EmptySpace pref="139" max="32767" attributes="0"/>
+                              <EmptySpace pref="33" max="32767" attributes="0"/>
+                              <Component id="jScrollPane3" min="-2" pref="313" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="logout1" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
                                   <Component id="addButton1" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
@@ -515,19 +507,26 @@
                               <Font name="Arial" size="14" style="1"/>
                             </Property>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="2" rowCount="11">
+                              <Table columnCount="2" rowCount="18">
                                 <Column editable="false" title="Product" type="java.lang.Object">
-                                  <Data value="Coca-Cola"/>
-                                  <Data value="Fanta"/>
-                                  <Data value="Sprite"/>
-                                  <Data value="Sparkling water"/>
-                                  <Data value="Orange Juice"/>
-                                  <Data value="Cappy Juice"/>
-                                  <Data value="Ice Tea "/>
-                                  <Data value="Lemonade Passion Fruit"/>
-                                  <Data value="Lemonade Green Apple"/>
-                                  <Data value="Ayran"/>
-                                  <Data value="Bonaqua"/>
+                                  <Data value="Super &#xc7;iz "/>
+                                  <Data value="Hamburger"/>
+                                  <Data value="Dabl Hamburger "/>
+                                  <Data value="Dabl Super &#xc7;iz "/>
+                                  <Data value="&#xc7;izburger "/>
+                                  <Data value="Dabl &#xc7;izburger "/>
+                                  <Data value="Big Mac&#x2122; "/>
+                                  <Data value="Dabl Big Mac&#x2122; "/>
+                                  <Data value="Royal &#xc7;izburger "/>
+                                  <Data value="Dabl Royal &#xc7;izburger "/>
+                                  <Data value="Big Tasty&#x2122; (&#x18f;t) "/>
+                                  <Data value="Big Tasty&#x2122; (Toyuq) "/>
+                                  <Data value="McChicken&#x2122; "/>
+                                  <Data value="Dabl McChicken&#x2122; "/>
+                                  <Data value="Sezar Roll "/>
+                                  <Data value="&#xc7;ikenburger "/>
+                                  <Data value="Filet-O-Fish&#x2122; "/>
+                                  <Data value="Dabl Filet-O-Fish&#x2122;"/>
                                 </Column>
                                 <Column editable="false" title="Price" type="java.lang.Object">
                                   <Data value="1.1"/>
@@ -541,6 +540,13 @@
                                   <Data value="1.9"/>
                                   <Data value="2"/>
                                   <Data value="2.1"/>
+                                  <Data value="2.2"/>
+                                  <Data value="2.3"/>
+                                  <Data value="2.4"/>
+                                  <Data value="2.5"/>
+                                  <Data value="2.6"/>
+                                  <Data value="2.7"/>
+                                  <Data value="2.8"/>
                                 </Column>
                               </Table>
                             </Property>
@@ -603,7 +609,7 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="600" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="603" max="32767" attributes="0"/>
                       <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -629,24 +635,26 @@
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jScrollPane4" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="logout2" min="-2" pref="151" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="addButton2" min="-2" pref="169" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <EmptySpace min="0" pref="43" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="117" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="jSeparator5" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jLabel6" alignment="0" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                              <Component id="logout2" min="-2" pref="151" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="132" max="-2" attributes="0"/>
+                              <Component id="addButton2" min="-2" pref="169" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="43" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
+                                  <Component id="jScrollPane9" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace pref="47" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -657,14 +665,19 @@
                               <Component id="jLabel6" min="-2" pref="60" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jSeparator5" min="-2" pref="10" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                              <Component id="jScrollPane4" min="-2" pref="205" max="-2" attributes="0"/>
-                              <EmptySpace pref="139" max="32767" attributes="0"/>
+                              <EmptySpace pref="377" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="logout2" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
                                   <Component id="addButton2" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="255" max="-2" attributes="0"/>
+                                  <Component id="jScrollPane9" min="-2" pref="90" max="-2" attributes="0"/>
+                                  <EmptySpace pref="255" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -692,52 +705,6 @@
                         </Property>
                       </Properties>
                     </Component>
-                    <Container class="javax.swing.JScrollPane" name="jScrollPane4">
-                      <AuxValues>
-                        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                      </AuxValues>
-
-                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                      <SubComponents>
-                        <Component class="javax.swing.JTable" name="jTable4">
-                          <Properties>
-                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Arial" size="14" style="1"/>
-                            </Property>
-                            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="2" rowCount="11">
-                                <Column editable="false" title="Product" type="java.lang.Object">
-                                  <Data value="Coca-Cola"/>
-                                  <Data value="Fanta"/>
-                                  <Data value="Sprite"/>
-                                  <Data value="Sparkling water"/>
-                                  <Data value="Orange Juice"/>
-                                  <Data value="Cappy Juice"/>
-                                  <Data value="Ice Tea "/>
-                                  <Data value="Lemonade Passion Fruit"/>
-                                  <Data value="Lemonade Green Apple"/>
-                                  <Data value="Ayran"/>
-                                  <Data value="Bonaqua"/>
-                                </Column>
-                                <Column editable="false" title="Price" type="java.lang.Object">
-                                  <Data value="1.1"/>
-                                  <Data value="1.2"/>
-                                  <Data value="1.3"/>
-                                  <Data value="1.4"/>
-                                  <Data value="1.5"/>
-                                  <Data value="1.6"/>
-                                  <Data value="1.7"/>
-                                  <Data value="1.8"/>
-                                  <Data value="1.9"/>
-                                  <Data value="2"/>
-                                  <Data value="2.1"/>
-                                </Column>
-                              </Table>
-                            </Property>
-                          </Properties>
-                        </Component>
-                      </SubComponents>
-                    </Container>
                     <Component class="javax.swing.JButton" name="addButton2">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -760,6 +727,38 @@
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="logout2ActionPerformed"/>
                       </Events>
                     </Component>
+                    <Container class="javax.swing.JScrollPane" name="jScrollPane9">
+                      <AuxValues>
+                        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                      </AuxValues>
+
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                      <SubComponents>
+                        <Component class="javax.swing.JTable" name="jTable9">
+                          <Properties>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                              <Font name="Arial" size="14" style="1"/>
+                            </Property>
+                            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+                              <Table columnCount="2" rowCount="4">
+                                <Column editable="false" title="Product" type="java.lang.Object">
+                                  <Data value="Happy Meal&#x2122; (with Hamburger)"/>
+                                  <Data value="Happy Meal&#x2122; (with Cheeseburger) "/>
+                                  <Data value="Happy Meal&#x2122; (with Chicken McNuggets)"/>
+                                  <Data value="Happy Meal&#x2122; (with Chickenburger)"/>
+                                </Column>
+                                <Column editable="false" title="Price" type="java.lang.Object">
+                                  <Data value="1.1"/>
+                                  <Data value="1.2"/>
+                                  <Data value="1.3"/>
+                                  <Data value="1.4"/>
+                                </Column>
+                              </Table>
+                            </Property>
+                          </Properties>
+                        </Component>
+                      </SubComponents>
+                    </Container>
                   </SubComponents>
                 </Container>
               </SubComponents>
@@ -793,7 +792,7 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="600" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="603" max="32767" attributes="0"/>
                       <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -848,8 +847,8 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jSeparator6" min="-2" pref="10" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
-                              <Component id="jScrollPane5" min="-2" pref="205" max="-2" attributes="0"/>
-                              <EmptySpace pref="138" max="32767" attributes="0"/>
+                              <Component id="jScrollPane5" min="-2" pref="153" max="-2" attributes="0"/>
+                              <EmptySpace pref="190" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="logout3" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
                                   <Component id="addButton3" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
@@ -895,19 +894,16 @@
                               <Font name="Arial" size="14" style="1"/>
                             </Property>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="2" rowCount="11">
+                              <Table columnCount="2" rowCount="8">
                                 <Column editable="false" title="Product" type="java.lang.Object">
-                                  <Data value="Coca-Cola"/>
-                                  <Data value="Fanta"/>
-                                  <Data value="Sprite"/>
-                                  <Data value="Sparkling water"/>
-                                  <Data value="Orange Juice"/>
-                                  <Data value="Cappy Juice"/>
-                                  <Data value="Ice Tea "/>
-                                  <Data value="Lemonade Passion Fruit"/>
-                                  <Data value="Lemonade Green Apple"/>
-                                  <Data value="Ayran"/>
-                                  <Data value="Bonaqua"/>
+                                  <Data value="French Fries"/>
+                                  <Data value="Wedges"/>
+                                  <Data value="Onion Rings "/>
+                                  <Data value="Shrimps"/>
+                                  <Data value="Chicken McNuggets "/>
+                                  <Data value="Chicken wings"/>
+                                  <Data value="McFlavor&#x2122; "/>
+                                  <Data value="Mozza Cheese"/>
                                 </Column>
                                 <Column editable="false" title="Price" type="java.lang.Object">
                                   <Data value="1.1"/>
@@ -918,9 +914,6 @@
                                   <Data value="1.6"/>
                                   <Data value="1.7"/>
                                   <Data value="1.8"/>
-                                  <Data value="1.9"/>
-                                  <Data value="2"/>
-                                  <Data value="2.1"/>
                                 </Column>
                               </Table>
                             </Property>
@@ -983,7 +976,7 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="600" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="603" max="32767" attributes="0"/>
                       <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jPanel16" min="-2" max="-2" attributes="0"/>
@@ -1037,8 +1030,8 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jSeparator7" min="-2" pref="10" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                              <Component id="jScrollPane6" min="-2" pref="205" max="-2" attributes="0"/>
-                              <EmptySpace pref="138" max="32767" attributes="0"/>
+                              <Component id="jScrollPane6" min="-2" pref="154" max="-2" attributes="0"/>
+                              <EmptySpace pref="189" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="logout4" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
                                   <Component id="addButton4" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
@@ -1084,19 +1077,16 @@
                               <Font name="Arial" size="14" style="1"/>
                             </Property>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="2" rowCount="11">
+                              <Table columnCount="2" rowCount="8">
                                 <Column editable="false" title="Product" type="java.lang.Object">
-                                  <Data value="Coca-Cola"/>
-                                  <Data value="Fanta"/>
-                                  <Data value="Sprite"/>
-                                  <Data value="Sparkling water"/>
-                                  <Data value="Orange Juice"/>
-                                  <Data value="Cappy Juice"/>
-                                  <Data value="Ice Tea "/>
-                                  <Data value="Lemonade Passion Fruit"/>
-                                  <Data value="Lemonade Green Apple"/>
-                                  <Data value="Ayran"/>
-                                  <Data value="Bonaqua"/>
+                                  <Data value="1000 Island Sauce "/>
+                                  <Data value="Barbecue Sauce "/>
+                                  <Data value="Garlic Sauce "/>
+                                  <Data value="Ketchup"/>
+                                  <Data value="Mayonnaise"/>
+                                  <Data value="Mustard Sauce "/>
+                                  <Data value="Sweet Sauce "/>
+                                  <Data value="Cheese Sauce"/>
                                 </Column>
                                 <Column editable="false" title="Price" type="java.lang.Object">
                                   <Data value="1.1"/>
@@ -1107,9 +1097,6 @@
                                   <Data value="1.6"/>
                                   <Data value="1.7"/>
                                   <Data value="1.8"/>
-                                  <Data value="1.9"/>
-                                  <Data value="2"/>
-                                  <Data value="2.1"/>
                                 </Column>
                               </Table>
                             </Property>
@@ -1172,7 +1159,7 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="600" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="603" max="32767" attributes="0"/>
                       <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -1230,8 +1217,8 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jSeparator8" min="-2" pref="10" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
-                              <Component id="jScrollPane7" min="-2" pref="205" max="-2" attributes="0"/>
-                              <EmptySpace pref="133" max="32767" attributes="0"/>
+                              <Component id="jScrollPane7" min="-2" pref="297" max="-2" attributes="0"/>
+                              <EmptySpace pref="41" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="logout5" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
                                   <Component id="addButton5" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
@@ -1277,19 +1264,25 @@
                               <Font name="Arial" size="14" style="1"/>
                             </Property>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="2" rowCount="11">
+                              <Table columnCount="2" rowCount="17">
                                 <Column editable="false" title="Product" type="java.lang.Object">
-                                  <Data value="Coca-Cola"/>
-                                  <Data value="Fanta"/>
-                                  <Data value="Sprite"/>
-                                  <Data value="Sparkling water"/>
-                                  <Data value="Orange Juice"/>
-                                  <Data value="Cappy Juice"/>
-                                  <Data value="Ice Tea "/>
-                                  <Data value="Lemonade Passion Fruit"/>
-                                  <Data value="Lemonade Green Apple"/>
-                                  <Data value="Ayran"/>
-                                  <Data value="Bonaqua"/>
+                                  <Data value="McFlurry&#x2122; (Caramel) "/>
+                                  <Data value="McFlurry&#x2122; (Strawberry) "/>
+                                  <Data value="McFlurry&#x2122; (Kit-Kat) "/>
+                                  <Data value="McSundae (Caramel) "/>
+                                  <Data value="McSundae (Chocolate) "/>
+                                  <Data value="McSundae (Strawberry) "/>
+                                  <Data value="Milk Shake (Coffee) "/>
+                                  <Data value="Milk Shake (Strawberry) "/>
+                                  <Data value="Milk Shake (Chocolate) "/>
+                                  <Data value="Milk Shake (Vanilla) "/>
+                                  <Data value="Muffin (Banana) "/>
+                                  <Data value="Muffin (Black Currant) "/>
+                                  <Data value="Muffin (Chocolate) "/>
+                                  <Data value="Fruit pie (Cherry) "/>
+                                  <Data value="Fruit pie (Strawberry and raspberry) "/>
+                                  <Data value="Chocolate Tart "/>
+                                  <Data value="Cone Ice Cream"/>
                                 </Column>
                                 <Column editable="false" title="Price" type="java.lang.Object">
                                   <Data value="1.1"/>
@@ -1303,6 +1296,12 @@
                                   <Data value="1.9"/>
                                   <Data value="2"/>
                                   <Data value="2.1"/>
+                                  <Data value="2.2"/>
+                                  <Data value="2.3"/>
+                                  <Data value="2.4"/>
+                                  <Data value="2.5"/>
+                                  <Data value="2.6"/>
+                                  <Data value="2.7"/>
                                 </Column>
                               </Table>
                             </Property>
@@ -1354,7 +1353,7 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="20" max="32767" attributes="0"/>
                           <Component id="jPanel18" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -1401,7 +1400,7 @@
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
                                       <Component id="jScrollPane8" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -1414,9 +1413,9 @@
                               <Component id="jLabel10" min="-2" pref="60" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jSeparator9" min="-2" pref="10" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                              <Component id="jScrollPane8" min="-2" pref="205" max="-2" attributes="0"/>
-                              <EmptySpace pref="142" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+                              <Component id="jScrollPane8" min="-2" pref="121" max="-2" attributes="0"/>
+                              <EmptySpace pref="212" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="logout6" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
                                   <Component id="addButton6" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
@@ -1462,19 +1461,14 @@
                               <Font name="Arial" size="14" style="1"/>
                             </Property>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="2" rowCount="11">
+                              <Table columnCount="2" rowCount="6">
                                 <Column editable="false" title="Product" type="java.lang.Object">
-                                  <Data value="Coca-Cola"/>
-                                  <Data value="Fanta"/>
-                                  <Data value="Sprite"/>
-                                  <Data value="Sparkling water"/>
-                                  <Data value="Orange Juice"/>
-                                  <Data value="Cappy Juice"/>
-                                  <Data value="Ice Tea "/>
-                                  <Data value="Lemonade Passion Fruit"/>
-                                  <Data value="Lemonade Green Apple"/>
-                                  <Data value="Ayran"/>
-                                  <Data value="Bonaqua"/>
+                                  <Data value="Coffee"/>
+                                  <Data value="Double Espresso "/>
+                                  <Data value="Tea"/>
+                                  <Data value="Cappuccino "/>
+                                  <Data value="Hot Chocolate "/>
+                                  <Data value="Latte"/>
                                 </Column>
                                 <Column editable="false" title="Price" type="java.lang.Object">
                                   <Data value="1.1"/>
@@ -1483,11 +1477,6 @@
                                   <Data value="1.4"/>
                                   <Data value="1.5"/>
                                   <Data value="1.6"/>
-                                  <Data value="1.7"/>
-                                  <Data value="1.8"/>
-                                  <Data value="1.9"/>
-                                  <Data value="2"/>
-                                  <Data value="2.1"/>
                                 </Column>
                               </Table>
                             </Property>
@@ -1535,13 +1524,17 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="1" attributes="0">
+              <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="jScrollPane1" pref="0" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jScrollPane1" alignment="1" pref="0" max="32767" attributes="0"/>
                       <Component id="jPanel13" alignment="1" max="32767" attributes="0"/>
                       <Component id="nextButton" alignment="0" max="32767" attributes="0"/>
                       <Component id="removeButton" alignment="0" max="32767" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="jLabel3" min="-2" pref="100" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -1553,8 +1546,10 @@
                   <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                   <Component id="jPanel13" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" min="-2" pref="319" max="-2" attributes="0"/>
+                  <Component id="jScrollPane1" min="-2" pref="232" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="jLabel3" min="-2" pref="30" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
                   <Component id="removeButton" min="-2" pref="40" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="nextButton" min="-2" pref="40" max="-2" attributes="0"/>
@@ -1576,9 +1571,9 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel2" alignment="0" min="-2" pref="93" max="-2" attributes="0"/>
-                          <Component id="jLabel3" alignment="0" min="-2" pref="93" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="jLabel2" pref="93" max="32767" attributes="0"/>
+                          <Component id="bonusButton" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -1598,9 +1593,9 @@
                           <Component id="usernameText" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel3" max="32767" attributes="0"/>
-                          <Component id="bonusText" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="bonusText" alignment="3" max="32767" attributes="0"/>
+                          <Component id="bonusButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -1613,26 +1608,48 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Arial Black" size="14" style="1"/>
                 </Property>
+                <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="text" type="java.lang.String" value="Username"/>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
+                    <BevelBorder/>
+                  </Border>
+                </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel2MouseClicked"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="usernameText">
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="jLabel3">
-              <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Arial Black" size="14" style="1"/>
+                  <Font name="Arial" size="10" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Bonus"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="bonusText">
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
-                <Property name="text" type="java.lang.String" value="jTextField2"/>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Arial" size="10" style="1"/>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="bonusButton">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="cc" green="cc" red="ff" type="rgb"/>
+                </Property>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Arial Black" size="14" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Bonus"/>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
+                    <BevelBorder/>
+                  </Border>
+                </Property>
               </Properties>
             </Component>
           </SubComponents>
@@ -1678,6 +1695,11 @@
             </Component>
           </SubComponents>
         </Container>
+        <Component class="javax.swing.JLabel" name="jLabel3">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="jLabel3"/>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>

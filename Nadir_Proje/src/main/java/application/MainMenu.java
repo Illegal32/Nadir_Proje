@@ -5,13 +5,17 @@
  */
 package application;
 
-import model.User;
+import DB.SQL;
 
 import javax.swing.*;
 import javax.swing.table.TableModel;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  * @author lenovo
@@ -22,6 +26,15 @@ public class MainMenu extends javax.swing.JFrame implements ActionListener {
      * Creates new form MainMenu
      */
 
+    public String key;
+
+    public MainMenu(String key) {
+        initComponents();
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        button();
+        this.key = key;
+        setTexts();
+    }
 
     public MainMenu() {
         initComponents();
@@ -29,7 +42,39 @@ public class MainMenu extends javax.swing.JFrame implements ActionListener {
         button();
     }
 
+    public String getKey() {
+        return key;
+    }
+
+    private String displayActorName(ResultSet rs) throws SQLException {
+        String answer = null;
+        while (rs.next()) {
+            answer = (rs.getString("username"));
+        }
+        return answer;
+    }
+
+    public void setTexts() {
+        if (getKey() == null) {
+            usernameText.setText("Guess");
+            bonusText.setText("-----");
+        } else {
+            SQL.getStatement();
+            String User = String.format("SELECT username FROM user1 WHERE fin = '%s'", getKey());
+            try (Connection conn = SQL.getConnection();
+                 Statement stmt = conn.createStatement();
+                 ResultSet rs = stmt.executeQuery(User)) {
+                String answer = displayActorName(rs);
+                usernameText.setText(answer);
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+            bonusText.setText(getKey());
+        }
+    }
+
     public void button() {
+        bonusButton.addActionListener(this);
         logout.addActionListener(this);
         logout1.addActionListener(this);
         logout2.addActionListener(this);
@@ -43,10 +88,12 @@ public class MainMenu extends javax.swing.JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (logout == e.getSource()) {
-
             Index l = new Index();
             dispose();
             l.setVisible(true);
+        } else if (bonusButton == e.getSource()) {
+            Bonus_Info b = new Bonus_Info();
+            b.setVisible(true);
         } else if (logout1 == e.getSource()) {
             Index l = new Index();
             dispose();
@@ -102,10 +149,10 @@ public class MainMenu extends javax.swing.JFrame implements ActionListener {
         jPanel5 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
         addButton = new javax.swing.JButton();
         logout = new javax.swing.JButton();
+        jScrollPane10 = new javax.swing.JScrollPane();
+        jTable10 = new javax.swing.JTable();
         jPanel6 = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -118,10 +165,10 @@ public class MainMenu extends javax.swing.JFrame implements ActionListener {
         jPanel14 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jSeparator5 = new javax.swing.JSeparator();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jTable4 = new javax.swing.JTable();
         addButton2 = new javax.swing.JButton();
         logout2 = new javax.swing.JButton();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        jTable9 = new javax.swing.JTable();
         jPanel8 = new javax.swing.JPanel();
         jPanel15 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
@@ -158,12 +205,13 @@ public class MainMenu extends javax.swing.JFrame implements ActionListener {
         jPanel13 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         usernameText = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
         bonusText = new javax.swing.JTextField();
+        bonusButton = new javax.swing.JButton();
         nextButton = new javax.swing.JButton();
         removeButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -278,6 +326,7 @@ public class MainMenu extends javax.swing.JFrame implements ActionListener {
         );
 
         jPanel2.setBackground(new java.awt.Color(0, 153, 153));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
         jPanel5.setPreferredSize(new java.awt.Dimension(545, 600));
@@ -290,8 +339,24 @@ public class MainMenu extends javax.swing.JFrame implements ActionListener {
         jSeparator3.setForeground(new java.awt.Color(0, 0, 0));
         jSeparator3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
 
-        jTable2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        addButton.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        addButton.setText("Add");
+        addButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addButtonActionPerformed(evt);
+            }
+        });
+
+        logout.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        logout.setText("Log Out");
+        logout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutActionPerformed(evt);
+            }
+        });
+
+        jTable10.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jTable10.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"Coca-Cola", "1.1"},
                 {"Fanta", "1.2"},
@@ -317,43 +382,27 @@ public class MainMenu extends javax.swing.JFrame implements ActionListener {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable2);
-
-        addButton.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        addButton.setText("Add");
-        addButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addButtonActionPerformed(evt);
-            }
-        });
-
-        logout.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        logout.setText("Log Out");
-        logout.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                logoutActionPerformed(evt);
-            }
-        });
+        jScrollPane10.setViewportView(jTable10);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(logout, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 63, Short.MAX_VALUE))
-            .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(117, 117, 117)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jSeparator3)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(logout, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(132, 132, 132)
+                        .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 63, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -362,9 +411,9 @@ public class MainMenu extends javax.swing.JFrame implements ActionListener {
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 110, Short.MAX_VALUE)
+                .addGap(48, 48, 48)
+                .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 130, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(logout, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -389,17 +438,24 @@ public class MainMenu extends javax.swing.JFrame implements ActionListener {
         jTable3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Coca-Cola", "1.1"},
-                {"Fanta", "1.2"},
-                {"Sprite", "1.3"},
-                {"Sparkling water", "1.4"},
-                {"Orange Juice", "1.5"},
-                {"Cappy Juice", "1.6"},
-                {"Ice Tea ", "1.7"},
-                {"Lemonade Passion Fruit", "1.8"},
-                {"Lemonade Green Apple", "1.9"},
-                {"Ayran", "2"},
-                {"Bonaqua", "2.1"}
+                {"Super Çiz ", "1.1"},
+                {"Hamburger", "1.2"},
+                {"Dabl Hamburger ", "1.3"},
+                {"Dabl Super Çiz ", "1.4"},
+                {"Çizburger ", "1.5"},
+                {"Dabl Çizburger ", "1.6"},
+                {"Big Mac™ ", "1.7"},
+                {"Dabl Big Mac™ ", "1.8"},
+                {"Royal Çizburger ", "1.9"},
+                {"Dabl Royal Çizburger ", "2"},
+                {"Big Tasty™ (?t) ", "2.1"},
+                {"Big Tasty™ (Toyuq) ", "2.2"},
+                {"McChicken™ ", "2.3"},
+                {"Dabl McChicken™ ", "2.4"},
+                {"Sezar Roll ", "2.5"},
+                {"Çikenburger ", "2.6"},
+                {"Filet-O-Fish™ ", "2.7"},
+                {"Dabl Filet-O-Fish™", "2.8"}
             },
             new String [] {
                 "Product", "Price"
@@ -458,9 +514,9 @@ public class MainMenu extends javax.swing.JFrame implements ActionListener {
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(logout1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(addButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -473,17 +529,16 @@ public class MainMenu extends javax.swing.JFrame implements ActionListener {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 565, Short.MAX_VALUE)
             .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel6Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
+            .addGap(0, 603, Short.MAX_VALUE)
             .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel6Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
                     .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
@@ -503,35 +558,6 @@ public class MainMenu extends javax.swing.JFrame implements ActionListener {
         jSeparator5.setForeground(new java.awt.Color(0, 0, 0));
         jSeparator5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
 
-        jTable4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"Coca-Cola", "1.1"},
-                {"Fanta", "1.2"},
-                {"Sprite", "1.3"},
-                {"Sparkling water", "1.4"},
-                {"Orange Juice", "1.5"},
-                {"Cappy Juice", "1.6"},
-                {"Ice Tea ", "1.7"},
-                {"Lemonade Passion Fruit", "1.8"},
-                {"Lemonade Green Apple", "1.9"},
-                {"Ayran", "2"},
-                {"Bonaqua", "2.1"}
-            },
-            new String [] {
-                "Product", "Price"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane4.setViewportView(jTable4);
-
         addButton2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         addButton2.setText("Add");
         addButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -548,25 +574,49 @@ public class MainMenu extends javax.swing.JFrame implements ActionListener {
             }
         });
 
+        jTable9.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jTable9.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"Happy Meal™ (with Hamburger)", "1.1"},
+                {"Happy Meal™ (with Cheeseburger) ", "1.2"},
+                {"Happy Meal™ (with Chicken McNuggets)", "1.3"},
+                {"Happy Meal™ (with Chickenburger)", "1.4"}
+            },
+            new String [] {
+                "Product", "Price"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane9.setViewportView(jTable9);
+
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
         jPanel14.setLayout(jPanel14Layout);
         jPanel14Layout.setHorizontalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel14Layout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel14Layout.createSequentialGroup()
-                        .addComponent(logout2, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(addButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 43, Short.MAX_VALUE))
             .addGroup(jPanel14Layout.createSequentialGroup()
                 .addGap(117, 117, 117)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jSeparator5)
                     .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel14Layout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(logout2, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(132, 132, 132)
+                .addComponent(addButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 43, Short.MAX_VALUE))
+            .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel14Layout.createSequentialGroup()
+                    .addGap(46, 46, 46)
+                    .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(47, Short.MAX_VALUE)))
         );
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -575,13 +625,16 @@ public class MainMenu extends javax.swing.JFrame implements ActionListener {
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 377, Short.MAX_VALUE)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(logout2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(addButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35))
+            .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel14Layout.createSequentialGroup()
+                    .addGap(255, 255, 255)
+                    .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(255, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -597,7 +650,7 @@ public class MainMenu extends javax.swing.JFrame implements ActionListener {
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
+            .addGap(0, 603, Short.MAX_VALUE)
             .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel7Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -623,17 +676,14 @@ public class MainMenu extends javax.swing.JFrame implements ActionListener {
         jTable5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jTable5.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Coca-Cola", "1.1"},
-                {"Fanta", "1.2"},
-                {"Sprite", "1.3"},
-                {"Sparkling water", "1.4"},
-                {"Orange Juice", "1.5"},
-                {"Cappy Juice", "1.6"},
-                {"Ice Tea ", "1.7"},
-                {"Lemonade Passion Fruit", "1.8"},
-                {"Lemonade Green Apple", "1.9"},
-                {"Ayran", "2"},
-                {"Bonaqua", "2.1"}
+                {"French Fries", "1.1"},
+                {"Wedges", "1.2"},
+                {"Onion Rings ", "1.3"},
+                {"Shrimps", "1.4"},
+                {"Chicken McNuggets ", "1.5"},
+                {"Chicken wings", "1.6"},
+                {"McFlavor™ ", "1.7"},
+                {"Mozza Cheese", "1.8"}
             },
             new String [] {
                 "Product", "Price"
@@ -693,8 +743,8 @@ public class MainMenu extends javax.swing.JFrame implements ActionListener {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 138, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 190, Short.MAX_VALUE)
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(logout3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(addButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -714,7 +764,7 @@ public class MainMenu extends javax.swing.JFrame implements ActionListener {
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
+            .addGap(0, 603, Short.MAX_VALUE)
             .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel8Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -740,17 +790,14 @@ public class MainMenu extends javax.swing.JFrame implements ActionListener {
         jTable6.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jTable6.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Coca-Cola", "1.1"},
-                {"Fanta", "1.2"},
-                {"Sprite", "1.3"},
-                {"Sparkling water", "1.4"},
-                {"Orange Juice", "1.5"},
-                {"Cappy Juice", "1.6"},
-                {"Ice Tea ", "1.7"},
-                {"Lemonade Passion Fruit", "1.8"},
-                {"Lemonade Green Apple", "1.9"},
-                {"Ayran", "2"},
-                {"Bonaqua", "2.1"}
+                {"1000 Island Sauce ", "1.1"},
+                {"Barbecue Sauce ", "1.2"},
+                {"Garlic Sauce ", "1.3"},
+                {"Ketchup", "1.4"},
+                {"Mayonnaise", "1.5"},
+                {"Mustard Sauce ", "1.6"},
+                {"Sweet Sauce ", "1.7"},
+                {"Cheese Sauce", "1.8"}
             },
             new String [] {
                 "Product", "Price"
@@ -810,8 +857,8 @@ public class MainMenu extends javax.swing.JFrame implements ActionListener {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 138, Short.MAX_VALUE)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 189, Short.MAX_VALUE)
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(logout4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(addButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -831,7 +878,7 @@ public class MainMenu extends javax.swing.JFrame implements ActionListener {
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
+            .addGap(0, 603, Short.MAX_VALUE)
             .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel9Layout.createSequentialGroup()
                     .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -856,17 +903,23 @@ public class MainMenu extends javax.swing.JFrame implements ActionListener {
         jTable7.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jTable7.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Coca-Cola", "1.1"},
-                {"Fanta", "1.2"},
-                {"Sprite", "1.3"},
-                {"Sparkling water", "1.4"},
-                {"Orange Juice", "1.5"},
-                {"Cappy Juice", "1.6"},
-                {"Ice Tea ", "1.7"},
-                {"Lemonade Passion Fruit", "1.8"},
-                {"Lemonade Green Apple", "1.9"},
-                {"Ayran", "2"},
-                {"Bonaqua", "2.1"}
+                {"McFlurry™ (Caramel) ", "1.1"},
+                {"McFlurry™ (Strawberry) ", "1.2"},
+                {"McFlurry™ (Kit-Kat) ", "1.3"},
+                {"McSundae (Caramel) ", "1.4"},
+                {"McSundae (Chocolate) ", "1.5"},
+                {"McSundae (Strawberry) ", "1.6"},
+                {"Milk Shake (Coffee) ", "1.7"},
+                {"Milk Shake (Strawberry) ", "1.8"},
+                {"Milk Shake (Chocolate) ", "1.9"},
+                {"Milk Shake (Vanilla) ", "2"},
+                {"Muffin (Banana) ", "2.1"},
+                {"Muffin (Black Currant) ", "2.2"},
+                {"Muffin (Chocolate) ", "2.3"},
+                {"Fruit pie (Cherry) ", "2.4"},
+                {"Fruit pie (Strawberry and raspberry) ", "2.5"},
+                {"Chocolate Tart ", "2.6"},
+                {"Cone Ice Cream", "2.7"}
             },
             new String [] {
                 "Product", "Price"
@@ -928,8 +981,8 @@ public class MainMenu extends javax.swing.JFrame implements ActionListener {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator8, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 133, Short.MAX_VALUE)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(logout5, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(addButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -949,7 +1002,7 @@ public class MainMenu extends javax.swing.JFrame implements ActionListener {
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
+            .addGap(0, 603, Short.MAX_VALUE)
             .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel10Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -975,17 +1028,12 @@ public class MainMenu extends javax.swing.JFrame implements ActionListener {
         jTable8.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jTable8.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Coca-Cola", "1.1"},
-                {"Fanta", "1.2"},
-                {"Sprite", "1.3"},
-                {"Sparkling water", "1.4"},
-                {"Orange Juice", "1.5"},
-                {"Cappy Juice", "1.6"},
-                {"Ice Tea ", "1.7"},
-                {"Lemonade Passion Fruit", "1.8"},
-                {"Lemonade Green Apple", "1.9"},
-                {"Ayran", "2"},
-                {"Bonaqua", "2.1"}
+                {"Coffee", "1.1"},
+                {"Double Espresso ", "1.2"},
+                {"Tea", "1.3"},
+                {"Cappuccino ", "1.4"},
+                {"Hot Chocolate ", "1.5"},
+                {"Latte", "1.6"}
             },
             new String [] {
                 "Product", "Price"
@@ -1037,7 +1085,7 @@ public class MainMenu extends javax.swing.JFrame implements ActionListener {
                         .addGap(125, 125, 125))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel18Layout.createSequentialGroup()
                         .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(43, 43, 43))))
+                        .addGap(44, 44, 44))))
         );
         jPanel18Layout.setVerticalGroup(
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1046,9 +1094,9 @@ public class MainMenu extends javax.swing.JFrame implements ActionListener {
                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator9, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 142, Short.MAX_VALUE)
+                .addGap(43, 43, 43)
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 212, Short.MAX_VALUE)
                 .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(logout6, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(addButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1060,7 +1108,7 @@ public class MainMenu extends javax.swing.JFrame implements ActionListener {
         jPanel11Layout.setHorizontalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 20, Short.MAX_VALUE)
                 .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel11Layout.setVerticalGroup(
@@ -1072,33 +1120,32 @@ public class MainMenu extends javax.swing.JFrame implements ActionListener {
 
         jTabbedPane1.addTab("7", jPanel11);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
+        jPanel2.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -30, -1, 630));
 
         jPanel4.setBackground(new java.awt.Color(51, 255, 204));
 
         jPanel13.setBackground(new java.awt.Color(255, 204, 204));
 
         jLabel2.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Username");
+        jLabel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+        });
 
         usernameText.setEditable(false);
-
-        jLabel3.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
-        jLabel3.setText("Bonus");
+        usernameText.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
 
         bonusText.setEditable(false);
-        bonusText.setText("jTextField2");
+        bonusText.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+
+        bonusButton.setBackground(new java.awt.Color(255, 204, 204));
+        bonusButton.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        bonusButton.setText("Bonus");
+        bonusButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
@@ -1106,9 +1153,9 @@ public class MainMenu extends javax.swing.JFrame implements ActionListener {
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+                    .addComponent(bonusButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(39, 39, 39)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(usernameText, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
@@ -1123,9 +1170,9 @@ public class MainMenu extends javax.swing.JFrame implements ActionListener {
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
                     .addComponent(usernameText))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(bonusText))
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bonusText)
+                    .addComponent(bonusButton))
                 .addContainerGap())
         );
 
@@ -1163,17 +1210,22 @@ public class MainMenu extends javax.swing.JFrame implements ActionListener {
         });
         jScrollPane1.setViewportView(jTable1);
 
+        jLabel3.setText("jLabel3");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+            .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(nextButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(removeButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(nextButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(removeButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -1182,8 +1234,10 @@ public class MainMenu extends javax.swing.JFrame implements ActionListener {
                 .addGap(25, 25, 25)
                 .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(57, 57, 57)
                 .addComponent(removeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(nextButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1219,8 +1273,8 @@ public class MainMenu extends javax.swing.JFrame implements ActionListener {
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         // TODO add your handling code here:
-        TableModel model1 = jTable2.getModel();
-        int[] index = jTable2.getSelectedRows();
+        TableModel model1 = jTable10.getModel();
+        int[] index = jTable10.getSelectedRows();
 
         Object[] row = new Object[2];
         DefaultTableModel model2 = (DefaultTableModel) jTable1.getModel();
@@ -1283,8 +1337,8 @@ public class MainMenu extends javax.swing.JFrame implements ActionListener {
 
     private void addButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButton2ActionPerformed
         // TODO add your handling code here:
-        TableModel model1 = jTable4.getModel();
-        int[] index = jTable4.getSelectedRows();
+        TableModel model1 = jTable9.getModel();
+        int[] index = jTable9.getSelectedRows();
 
         Object[] row = new Object[2];
         DefaultTableModel model2 = (DefaultTableModel) jTable1.getModel();
@@ -1387,34 +1441,34 @@ public class MainMenu extends javax.swing.JFrame implements ActionListener {
         jTabbedPane1.setSelectedIndex(6);
     }//GEN-LAST:event_hordrinkActionPerformed
 
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel2MouseClicked
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MainMenu().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(MainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(() -> new MainMenu().setVisible(true));
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
@@ -1425,6 +1479,7 @@ public class MainMenu extends javax.swing.JFrame implements ActionListener {
     private javax.swing.JButton addButton5;
     private javax.swing.JButton addButton6;
     private javax.swing.JButton beverage;
+    private javax.swing.JButton bonusButton;
     private javax.swing.JTextField bonusText;
     private javax.swing.JButton burger;
     private javax.swing.JButton dessert;
@@ -1459,13 +1514,13 @@ public class MainMenu extends javax.swing.JFrame implements ActionListener {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
@@ -1475,13 +1530,13 @@ public class MainMenu extends javax.swing.JFrame implements ActionListener {
     private javax.swing.JSeparator jSeparator9;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTable10;
     private javax.swing.JTable jTable3;
-    private javax.swing.JTable jTable4;
     private javax.swing.JTable jTable5;
     private javax.swing.JTable jTable6;
     private javax.swing.JTable jTable7;
     private javax.swing.JTable jTable8;
+    private javax.swing.JTable jTable9;
     private javax.swing.JButton logout;
     private javax.swing.JButton logout1;
     private javax.swing.JButton logout2;

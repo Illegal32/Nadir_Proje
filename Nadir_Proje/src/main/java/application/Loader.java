@@ -35,5 +35,6 @@ public class Loader {
     public void method() {
         n.put(key, value);
         System.out.println(value);
+        MainMenu n = new MainMenu();
     }
 }

@@ -5,6 +5,13 @@
     <artifactId>Nadir_Proje</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
+    <dependencies>
+        <dependency>
+            <groupId>org.netbeans.external</groupId>
+            <artifactId>AbsoluteLayout</artifactId>
+            <version>RELEASE125</version>
+        </dependency>
+    </dependencies>
     <properties>
         <java.version>1.8</java.version>
         <maven.compiler.version>3.8.1</maven.compiler.version>
