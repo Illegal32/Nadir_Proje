@@ -275,11 +275,7 @@ public class CashPayment extends javax.swing.JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == bonusButton) {
-            BonusPayment b = new BonusPayment();
-            dispose();
-            b.setVisible(true);
-        } else if (e.getSource() == getReceiptButton) {
+        if (e.getSource() == getReceiptButton) {
             Receipt b = new Receipt();
             dispose();
             b.setVisible(true);

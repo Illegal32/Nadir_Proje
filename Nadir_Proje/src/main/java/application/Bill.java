@@ -46,10 +46,6 @@ public class Bill extends javax.swing.JFrame implements ActionListener {
             OnlinePayment n = new OnlinePayment();
             dispose();
             n.setVisible(true);
-        } else if (e.getSource() == bonusButton) {
-            BonusPayment n = new BonusPayment();
-            dispose();
-            n.setVisible(true);
         }
     }
 
