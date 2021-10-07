@@ -27,6 +27,14 @@ public class Receipt extends javax.swing.JFrame implements ActionListener {
     public void button() {
         print.addActionListener(this);
     }
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == print) {
+            Index i = new Index();
+            dispose();
+            i.setVisible(true);
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -201,9 +209,5 @@ public class Receipt extends javax.swing.JFrame implements ActionListener {
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JButton print;
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
-    }
     // End of variables declaration//GEN-END:variables
 }
